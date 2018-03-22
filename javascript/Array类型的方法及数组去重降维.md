@@ -141,17 +141,37 @@ function simplify(arr){
     });
     return result;
 }
-function simplify_1(arr){
-    arr.forEach(function(item){
-        if(arr.indexOf(item)!=arr.lastIndexOf(item)){
-            arr.splice(arr.lastIndexOf(item),1);
-        }
-    });
+console.log(simplify(arr));//[ 1, 2, 3, 4, 5, 6 ]
+////////////////////
+Array.prototype.simplify_1 = function(){
+	let result = [...new Set(this)];
+	return result;
+}
+////////////////////
+Array.prototype.simplify_2 = function(){
+	var arr = this.sort();
+	var res = [arr[0]];
+	for(var i=1;i<arr.length;i++){
+		if(arr[i]!==res[res.length-1]){
+			res.push(arr[i]);
+		}
+	}
+	return res;
+}
+////////////////////
+Array.prototype.simplify_3 = function(){
+	// 缺点：如果数组中有值相同的数字和字符串什么的，就会只留下一个
+	var obj={};
+	for(var i=0, len=this.length;i<len;i++){
+		obj[this[i]]=1;
+	}
+	var r = Object.keys(obj);
+	r.map(function(item, index, array){
+		return +item;
+	});
+	return r;
 }
 
-console.log(simplify(arr));//[ 1, 2, 3, 4, 5, 6 ]
-simplify_1(arr);
-console.log(arr);//[ 1, 2, 3, 4, 5, 6 ]
 ```
 
 ```javascript
